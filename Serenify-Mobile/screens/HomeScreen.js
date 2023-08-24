@@ -15,6 +15,7 @@ export default function HomeScreen() {
             source={require("../assets/SerenifyLogo.png")}
             style={{ width: 120, height: 60 }}
           />
+          {/* Replace with username */}
           <Text className="text-[#1A1B4B] mr-4  text-base">Hello, Putri</Text>
         </View>
       </SafeAreaView>

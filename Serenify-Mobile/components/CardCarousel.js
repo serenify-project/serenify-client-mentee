@@ -6,7 +6,7 @@ var { width, height } = Dimensions.get("window");
 export default function CardCarousel({ data }) {
   const navigation = useNavigation();
   const handleClick = () => {
-    // navigation.navigate("Movie", item);
+    // Payment
     navigation.navigate("SignUp");
   };
   return (
@@ -21,8 +21,6 @@ export default function CardCarousel({ data }) {
             <Package handleClick={handleClick} item={item} />
           )}
           firstItem={1}
-          // loop={true}
-          // inactiveSlideScale={0.86}
           inactiveSlideOpacity={0.6}
           sliderWidth={width}
           itemWidth={width * 0.72}
@@ -49,18 +47,18 @@ const Package = ({ item, handleClick }) => {
           <View className="flex-1">
             <Text className="text-black text-lg font-semibold">PAKET</Text>
             <Text className="text-black text-xl font-semibold">
-              Small {/* {package.name} */}
+              Small {/* {item.name} */}
             </Text>
           </View>
 
           <Text className="text-[#3E6D9C] text-2xl font-bold">
-            Rp.299k {/* {package.price} */}
+            Rp.299k {/* {item.price} */}
           </Text>
         </View>
         <View className="flex-row my-4 justify-between mx-24">
           <Text className="text-center text-xl font-semibold ">SESI</Text>
           <Text className="text-center text-xl font-semibold ">
-            1 JAM {/* {package.duration} */}
+            1 JAM {/* {item.duration} */}
           </Text>
         </View>
 
@@ -69,7 +67,7 @@ const Package = ({ item, handleClick }) => {
           <Text className="tracking-wide text-base text-neutral-800">
             Paket yang cocok bila kamu lagi ingin irit budget, paket ini akan
             berlangsung selama 2 jam. Saya gak tau bang , saya cuman kerja bang.
-            {/* package.description */}
+            {/* item.description */}
           </Text>
         </View>
         {/* Schedule */}
@@ -77,7 +75,7 @@ const Package = ({ item, handleClick }) => {
           <Text className="mb-2 font-semibold">Schedule</Text>
           <Text className="tracking-wide text-base text-neutral-800">
             Monday, 20 October 2023
-            {/* package.schedule */}
+            {/* item.schedule */}
           </Text>
         </View>
       </View>

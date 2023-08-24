@@ -5,26 +5,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Form() {
+export default function Form({ data, handleChange, handleSubmit }) {
   const navigation = useNavigation();
 
-  const [user, setUser] = useState({
-    email: "",
-    username: "",
-    password: "",
-    gender: "",
-    birthDate: "",
-  });
-  const handleChange = (field, value) => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      [field]: value,
-    }));
-  };
-  // Pemanggilan API (trycatch)
-  const handleSubmit = (event) => {
-    console.log(user);
-  };
   return (
     <View
       className="flex-1 bg-white"
@@ -58,7 +41,7 @@ export default function Form() {
           <Text className="text-gray-700 ml-4">Email Address</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-            value={user.email}
+            value={data.email}
             onChangeText={(text) => handleChange("email", text)}
             placeholder="Enter Email"
           />
@@ -68,7 +51,7 @@ export default function Form() {
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-7"
             secureTextEntry
             onChangeText={(text) => handleChange("password", text)}
-            value={user.password}
+            value={data.password}
             placeholder="Enter Password"
           />
           {/* Gender */}
@@ -76,7 +59,7 @@ export default function Form() {
           <TextInput
             onChangeText={(text) => handleChange("gender", text)}
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-            value={user.gender}
+            value={data.gender}
             placeholder="Male/Female"
           />
           {/* BirthDate */}
@@ -84,11 +67,9 @@ export default function Form() {
           <TextInput
             onChangeText={(text) => handleChange("birthDate", text)}
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
-            value={user.birthDate}
+            value={data.birthDate}
             placeholder="DD-MM-YYYY"
           />
-
-          {/* Kondisi jika belum login */}
 
           <TouchableOpacity
             onPress={handleSubmit}
@@ -96,12 +77,7 @@ export default function Form() {
             style={{ backgroundColor: themeColors.bg2 }}
           >
             <Text className="font-xl font-bold text-center text-gray-700">
-              {user.email === "" &&
-              user.password === "" &&
-              user.gender === "" &&
-              user.birthDate === ""
-                ? "Sign Up"
-                : "Submit"}
+              Submit
             </Text>
           </TouchableOpacity>
         </View>
