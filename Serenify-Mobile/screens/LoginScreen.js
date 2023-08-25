@@ -4,9 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { themeColors } from "../themes";
 import { useNavigation } from "@react-navigation/native";
-
+import { useDispatch } from "react-redux";
+import { login } from "../stores/actions/actionCreators.js/user";
 export default function LoginScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   // useState and useEffect
   const [user, setUser] = useState({
     email: "",
@@ -20,7 +22,8 @@ export default function LoginScreen() {
   };
   // Pemanggilan API (trycatch)
   const handleSubmit = (event) => {
-    console.log(user);
+    console.log(user, "<<< DARI SCREEN");
+    dispatch(login(user));
     navigation.navigate("Home");
   };
   return (

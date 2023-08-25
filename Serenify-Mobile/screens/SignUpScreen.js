@@ -1,7 +1,12 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
 import Form from "../components/Form";
+import { register } from "../stores/actions/actionCreators.js/user";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 export default function SignUpScreen() {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -16,7 +21,9 @@ export default function SignUpScreen() {
   };
   // Pemanggilan API (trycatch)
   const handleSubmit = (event) => {
-    console.log(user);
+    console.log(user, "<<< DARI SCREEN REGISTER");
+    dispatch(register(user));
+    navigation.navigate("Home");
   };
   return (
     <Form data={user} handleChange={handleChange} handleSubmit={handleSubmit} />

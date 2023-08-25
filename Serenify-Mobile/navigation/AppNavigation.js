@@ -13,6 +13,9 @@ import {
   ShoppingBagIcon as BagSolid,
   ChatBubbleLeftIcon as ChatSolid,
 } from "react-native-heroicons/solid";
+// Redux
+import { Provider } from "react-redux";
+import store from "../stores/index";
 
 // Component
 import LoginScreen from "../screens/LoginScreen";
@@ -22,6 +25,7 @@ import EditProfileScreen from "../screens/EditProfileScreen";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
+import DetailPackage from "../screens/DetailPackage";
 // ThemeColors
 import { themeColors } from "../themes";
 import { LogBox, View } from "react-native";
@@ -38,36 +42,43 @@ LogBox.ignoreLogs([
 // Component
 export default function AppNavigation() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen
-          name="Home"
-          options={{ headerShown: false }}
-          component={HomeTabs}
-        />
-        <Stack.Screen
-          name="Welcome"
-          options={{ headerShown: false }}
-          component={WelcomeScreen}
-        />
-        <Stack.Screen
-          name="Login"
-          options={{ headerShown: false }}
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          name="SignUp"
-          options={{ headerShown: false }}
-          component={SignUpScreen}
-        />
-        <Stack.Screen
-          name="Edit"
-          options={{ headerShown: false }}
-          component={EditProfileScreen}
-        />
-        {/* Nambah screen payment */}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={HomeTabs}
+          />
+          <Stack.Screen
+            name="Welcome"
+            options={{ headerShown: false }}
+            component={WelcomeScreen}
+          />
+          <Stack.Screen
+            name="Login"
+            options={{ headerShown: false }}
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            name="SignUp"
+            options={{ headerShown: false }}
+            component={SignUpScreen}
+          />
+          <Stack.Screen
+            name="Edit"
+            options={{ headerShown: false }}
+            component={EditProfileScreen}
+          />
+          <Stack.Screen
+            name="Package"
+            options={{ headerShown: false }}
+            component={DetailPackage}
+          />
+          {/* Nambah screen payment */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
