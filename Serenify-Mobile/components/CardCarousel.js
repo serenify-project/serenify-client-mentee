@@ -3,7 +3,7 @@ import React from "react";
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
 var { width, height } = Dimensions.get("window");
-export default function CardCarousel({ data }) {
+export default function CardCarousel({ data, name }) {
   const navigation = useNavigation();
   const handleClick = () => {
     // Payment
@@ -11,10 +11,10 @@ export default function CardCarousel({ data }) {
   };
   return (
     <View className="mb-8">
-      <Text className="text-[#1A1B4B] text-xl mx-4 mb-10 font-bold">
-        Available Packages
+      <Text className="text-[#1A1B4B] text-2xl mx-4 mb-4 font-bold">
+        {name}
       </Text>
-      <View className="mb-8 ">
+      <View className="mb-4">
         <Carousel
           data={data}
           renderItem={({ item }) => (
