@@ -1,4 +1,12 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Button,
+} from "react-native";
+
 import React, { useState } from "react";
 import { themeColors } from "../themes";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,6 +45,14 @@ export default function Form({ data, handleChange, handleSubmit }) {
         style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50 }}
       >
         <View className="form space-y-2">
+          {/* Username */}
+          <Text className="text-gray-700 ml-4">Username</Text>
+          <TextInput
+            className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
+            value={data.username}
+            onChangeText={(text) => handleChange("username", text)}
+            placeholder="Enter Email"
+          />
           {/* Email */}
           <Text className="text-gray-700 ml-4">Email Address</Text>
           <TextInput
@@ -68,7 +84,7 @@ export default function Form({ data, handleChange, handleSubmit }) {
             onChangeText={(text) => handleChange("birthDate", text)}
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
             value={data.birthDate}
-            placeholder="DD-MM-YYYY"
+            placeholder="DD/MM/YYYY"
           />
 
           <TouchableOpacity

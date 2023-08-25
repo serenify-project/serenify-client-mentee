@@ -8,6 +8,7 @@ export default function SignUpScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [user, setUser] = useState({
+    username: "",
     email: "",
     password: "",
     gender: "",
@@ -23,7 +24,6 @@ export default function SignUpScreen() {
   const handleSubmit = (event) => {
     console.log(user, "<<< DARI SCREEN REGISTER");
     dispatch(register(user));
-    navigation.navigate("Home");
   };
   return (
     <Form data={user} handleChange={handleChange} handleSubmit={handleSubmit} />
