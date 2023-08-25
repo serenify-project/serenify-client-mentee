@@ -12,7 +12,6 @@ export function login(userData) {
       //     body: JSON.stringify(userData),
       //   });
       //   const data = await response.json();
-
       //   localStorage.setItem("access_token", data.message);
       //   if (!response.ok) {
       //     throw data.message;
@@ -26,6 +25,7 @@ export function login(userData) {
 export function register(userData) {
   return async (dispatch) => {
     try {
+      userData.birthDate = new Date(userData.birthDate);
       console.log(userData);
       //   const response = await fetch(API_URL + "/register", {
       //     method: "POST",

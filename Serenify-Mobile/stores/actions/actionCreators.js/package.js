@@ -55,22 +55,23 @@ export function fetchPackages() {
   };
 }
 
-export function fetchMoviesById(id) {
+export function fetchPackageDetail(id) {
   return async (dispatch) => {
     try {
-      dispatch(fetchDetailPackageLoading(true));
-      const response = await fetch(API_URL + `/movie/${id}`, {
-        method: "GET",
-        headers: {
-          access_token: localStorage.getItem("access_token"),
-        },
-      });
-      const responseJSON = await response.json();
-      dispatch(fetchPackageDetailSuccess(responseJSON));
+      console.log("fetchDetail berjalan dengan ID:", id);
+      // dispatch(fetchDetailPackageLoading(true));
+      // const response = await fetch(API_URL + `/movie/${id}`, {
+      //   method: "GET",
+      //   headers: {
+      //     access_token: localStorage.getItem("access_token"),
+      //   },
+      // });
+      // const responseJSON = await response.json();
+      // dispatch(fetchPackageDetailSuccess(responseJSON));
     } catch (error) {
       console.log(err);
     } finally {
-      dispatch(fetchDetailPackageLoading(false));
+      // dispatch(fetchDetailPackageLoading(false));
     }
   };
 }
