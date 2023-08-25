@@ -7,7 +7,7 @@ export default function CardCarousel({ data, name }) {
   const navigation = useNavigation();
   const handleClick = () => {
     // Payment
-    navigation.navigate("SignUp");
+    navigation.navigate("Package");
   };
   return (
     <View className="mb-8">
