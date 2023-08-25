@@ -65,6 +65,7 @@ export default function AppNavigation() {
           options={{ headerShown: false }}
           component={EditProfileScreen}
         />
+        {/* Nambah screen payment */}
       </Stack.Navigator>
     </NavigationContainer>
   );

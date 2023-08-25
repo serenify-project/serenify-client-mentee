@@ -23,7 +23,9 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 10 }}
       >
-        <CardCarousel data={packages} />
+        <CardCarousel data={packages} name={"Nenangin"} />
+        <CardCarousel data={packages} name={"Tampan"} />
+        <CardCarousel data={packages} name={"Sultan"} />
       </ScrollView>
     </View>
   );
