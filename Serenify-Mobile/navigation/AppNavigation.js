@@ -60,6 +60,11 @@ export default function AppNavigation() {
           options={{ headerShown: false }}
           component={SignUpScreen}
         />
+        <Stack.Screen
+          name="Edit"
+          options={{ headerShown: false }}
+          component={EditProfileScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
