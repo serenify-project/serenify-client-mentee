@@ -101,7 +101,7 @@ function HomeTabs() {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home_" component={HomeScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -111,7 +111,7 @@ function HomeTabs() {
 const menuIcons = (route, focused) => {
   let icon;
 
-  if (route.name === "Home") {
+  if (route.name === "Home_") {
     icon = focused ? (
       <HomeSolid size="30" color={themeColors.bg3} />
     ) : (
@@ -133,9 +133,7 @@ const menuIcons = (route, focused) => {
 
   let buttonClass = focused ? "bg-white" : "";
   return (
-    <View
-      className={"flex items-center rounded-full p-3 shadow " + buttonClass}
-    >
+    <View className={"flex items-center rounded-full p-3 shadow" + buttonClass}>
       {icon}
     </View>
   );
