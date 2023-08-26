@@ -1,21 +1,28 @@
 import { API_URL } from "../../../config/api";
-
+// LocalStoragenya react native
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export function login(userData) {
   return async (dispatch) => {
     try {
-      console.log(userData);
-      //   const response = await fetch(API_URL + "/login", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(userData),
-      //   });
-      //   const data = await response.json();
-      //   localStorage.setItem("access_token", data.message);
-      //   if (!response.ok) {
-      //     throw data.message;
-      //   }
+      const response = await fetch(API_URL + "/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      const data = await response.json();
+      if (!data.access_token) {
+        throw { name: "Invalid Password" };
+      } else {
+        await AsyncStorage.setItem(
+          "access_token",
+          JSON.stringify(data.access_token)
+        );
+      }
+      if (!response.ok) {
+        throw data.message;
+      }
     } catch (err) {
       console.log(err);
     }
