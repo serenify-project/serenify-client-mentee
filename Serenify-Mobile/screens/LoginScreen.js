@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
@@ -6,6 +13,7 @@ import { themeColors } from "../themes";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { login } from "../stores/actions/actionCreators.js/user";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function LoginScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -20,11 +28,26 @@ export default function LoginScreen() {
       [field]: value,
     }));
   };
-  // Pemanggilan API (trycatch)
-  const handleSubmit = (event) => {
-    console.log(user, "<<< DARI SCREEN");
-    dispatch(login(user));
-    navigation.navigate("Home");
+
+  const handleSubmit = async (event) => {
+    try {
+      dispatch(login(user));
+      // await AsyncStorage.clear();
+      const token = await AsyncStorage.getItem("access_token");
+      if (token) {
+        navigation.navigate("Home");
+      } else {
+        Alert.alert(
+          "Invalid Username/Password",
+          "Please check your username/password"[
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: false }
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <View
@@ -58,12 +81,14 @@ export default function LoginScreen() {
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
             placeholder="email"
             onChangeText={(text) => handleChange("email", text)}
+            autoCapitalize="none"
             value={user.email}
           />
           <Text className="text-gray-700 ml-4">Password</Text>
           <TextInput
             className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
             secureTextEntry
+            autoCapitalize="none"
             placeholder="password"
             onChangeText={(text) => handleChange("password", text)}
             value={user.password}
