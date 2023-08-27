@@ -12,16 +12,15 @@ export default function WelcomeScreen() {
       style={{ backgroundColor: themeColors.bg }}
     >
       <View className="flex-1 flex justify-around my-4">
-        <View className="flex-row justify-center mt-20 ">
+        <View className="flex-row justify-center mt-20">
           <Image
-            source={require("../assets/SerenifyLogo.png")}
-            style={{ width: 350, height: 200 }}
+            source={require("../assets/test2.png")}
+            style={{ width: 300, height: 50 }}
           />
         </View>
-        <Text className="text-[#1A1B4B] font-bold text-xl text-center mx-4 -mt-20">
-          Experience the future of mental health support with Serenify – where
-          professional care, convenience, and community converge to empower your
-          well-being journey.
+        <Text className="text-[#1A1B4B] font-bold text-l text-center mx-4 -mt-20">
+          Where professional care, convenience, and community converge to
+          empower your well-being journey.
         </Text>
         <View className=" mb-10 space-y-4">
           <TouchableOpacity
