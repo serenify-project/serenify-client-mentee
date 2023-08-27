@@ -17,10 +17,10 @@ export default function HomeScreen() {
     <View className="flex-1" style={{ backgroundColor: themeColors.bg }}>
       <SafeAreaView>
         <View className="flex-row justify-between items-center mx-4">
-          <Image
+          {/* <Image
             source={require("../assets/SerenifyLogo.png")}
             style={{ width: 120, height: 60 }}
-          />
+          /> */}
           {/* Replace with username */}
           <Text className="text-[#1A1B4B] mr-4  text-base">Hello, Putri</Text>
         </View>

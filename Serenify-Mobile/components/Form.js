@@ -34,8 +34,8 @@ export default function Form({ data, handleChange, handleSubmit }) {
         </View>
         <View className="flex-row justify-center">
           <Image
-            source={require("../assets/SerenifyLogo.png")}
-            style={{ width: 165, height: 110 }}
+            source={require("../assets/test4.png")}
+            style={{ width: 300, height: 50 }}
           />
         </View>
       </SafeAreaView>

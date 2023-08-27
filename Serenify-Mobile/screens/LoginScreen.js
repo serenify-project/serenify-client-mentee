@@ -42,7 +42,7 @@ export default function LoginScreen() {
           "Please check your username/password"[
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ],
-          { cancelable: false }
+          { cancelable: false },
         );
       }
     } catch (err) {
@@ -64,10 +64,14 @@ export default function LoginScreen() {
             <ArrowLeftIcon size="20" color="black" />
           </TouchableOpacity>
         </View>
-        <View className="flex-row justify-center">
+        <View className="flex-row justify-center ">
           <Image
-            source={require("../assets/SerenifyLogo.png")}
-            style={{ width: 300, height: 150 }}
+            source={require("../assets/test4.png")}
+            style={{
+              width: 300,
+              height: 50,
+              marginTop: 80,
+            }}
           />
         </View>
       </SafeAreaView>
