@@ -33,18 +33,20 @@ export function register(userData) {
   return async (dispatch) => {
     try {
       userData.birthDate = new Date(userData.birthDate);
+      console.log(new Date("12/12/2000"), "INI DATE");
+      userData.role = "mentee";
       console.log(userData);
-      //   const response = await fetch(API_URL + "/register", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(userData),
-      //   });
-      //   const data = response.json();
-      //   if (!response.ok) {
-      //     throw data.message;
-      //   }
+      const response = await fetch(API_URL + "/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      const data = response.json();
+      if (!response.ok) {
+        throw data.message;
+      }
     } catch (err) {
       console.log(err);
     }
