@@ -6,7 +6,7 @@ import {
 } from "../actions/actionType";
 
 const initialState = {
-  packages: [1, 1, 1],
+  packages: [],
   packagesLoading: false,
   package: null,
   packageLoading: false,
@@ -17,7 +17,7 @@ const packageReducer = (state = initialState, action) => {
     case PACKAGES_SUCCESS:
       return {
         ...state,
-        packages: action.payload.data,
+        packages: action.payload,
       };
     case PACKAGES_LOADING:
       return {

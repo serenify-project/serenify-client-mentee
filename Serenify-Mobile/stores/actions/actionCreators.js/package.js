@@ -4,7 +4,7 @@ import {
   PACKAGES_DETAIL_SUCCESS,
   PACKAGES_DETAIL_LOADING,
 } from "../actionType";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "../../../config/api";
 
 export function fetchPackagesSuccess(payload) {
@@ -38,15 +38,16 @@ export function fetchPackages() {
   return async (dispatch) => {
     try {
       console.log("fetchPackages Jalan");
-      // dispatch(fetchPackagesLoading(true));
-      // const response = await fetch(API_URL + "/movie", {
-      //   method: "GET",
-      //   headers: {
-      //     access_token: localStorage.getItem("access_token"),
-      //   },
-      // });
-      // const responseJSON = await response.json();
-      // dispatch(fetchPackagesSuccess(responseJSON));
+      dispatch(fetchPackagesLoading(true));
+      const response = await fetch(API_URL + "/packages", {
+        method: "GET",
+        headers: {
+          access_token: await AsyncStorage.getItem("access_token"),
+        },
+      });
+      const responseJSON = await response.json();
+      console.log(responseJSON);
+      dispatch(fetchPackagesSuccess(responseJSON));
     } catch (error) {
       console.log(err);
     } finally {

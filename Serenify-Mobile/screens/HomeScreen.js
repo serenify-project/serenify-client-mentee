@@ -10,6 +10,7 @@ export default function HomeScreen() {
   const navigate = useNavigation();
   const dispatch = useDispatch();
   const { packages, packagesLoading } = useSelector((state) => state.package);
+  console.log(packages);
   useEffect(() => {
     dispatch(fetchPackages());
   }, []);
@@ -30,8 +31,6 @@ export default function HomeScreen() {
         contentContainerStyle={{ paddingBottom: 10 }}
       >
         <CardCarousel data={packages} name={"Nenangin"} />
-        <CardCarousel data={packages} name={"Tampan"} />
-        <CardCarousel data={packages} name={"Sultan"} />
       </ScrollView>
     </View>
   );

@@ -12,6 +12,9 @@ export function login(userData) {
         body: JSON.stringify(userData),
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw data.message;
+      }
       if (!data.access_token) {
         throw { name: "Invalid Password" };
       } else {
@@ -19,9 +22,7 @@ export function login(userData) {
           "access_token",
           JSON.stringify(data.access_token)
         );
-      }
-      if (!response.ok) {
-        throw data.message;
+        return data.access_token;
       }
     } catch (err) {
       console.log(err);
