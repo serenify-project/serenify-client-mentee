@@ -1,17 +1,54 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { themeColors } from "../themes";
 import React from "react";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { initPayment } from "../stores/actions/actionCreators.js/payment";
+import {
+  initPayment,
+  paymentSuccess,
+} from "../stores/actions/actionCreators.js/payment";
+import { useStripe } from "@stripe/stripe-react-native";
 export default function DetailPackage() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  // STRIPE
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const { packageDetail } = useSelector((state) => state.package);
-  const handleEnroll = () => {
-    console.log("Pemanggilan Stripe dengan ID:", packageDetail.id);
-    dispatch(initPayment(packageDetail.id));
+  const handleEnroll = async () => {
+    try {
+      console.log("Pemanggilan Stripe dengan ID:", packageDetail.id);
+      const intent = await dispatch(initPayment(packageDetail.id));
+      console.log(intent);
+
+      const initResponse = await initPaymentSheet({
+        merchantDisplayName: "Serenify",
+        paymentIntentClientSecret: intent.clientSecret,
+      });
+      if (initResponse.error) {
+        console.log(initResponse.error);
+        Alert.alert("Something went wrong");
+        return;
+      }
+      const paymentResponse = await presentPaymentSheet();
+      if (paymentResponse.error) {
+        Alert.alert(
+          `${paymentResponse.error.code}`,
+          paymentResponse.error.message
+        );
+        return;
+      }
+      await dispatch(paymentSuccess(packageDetail.id));
+      navigation.navigate("Home");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <View

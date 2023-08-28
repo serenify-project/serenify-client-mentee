@@ -35,10 +35,7 @@ export function login(userData) {
       if (!data.access_token) {
         throw { name: "Invalid Password" };
       } else {
-        await AsyncStorage.setItem(
-          "access_token",
-          JSON.stringify(data.access_token)
-        );
+        await AsyncStorage.setItem("access_token", data.access_token);
         dispatch(getUserSuccess(data));
         return data.access_token;
       }
