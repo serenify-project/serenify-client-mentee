@@ -26,6 +26,11 @@ export default function SignUpScreen() {
     dispatch(register(user));
   };
   return (
-    <Form data={user} handleChange={handleChange} handleSubmit={handleSubmit} />
+    <Form
+      data={user}
+      isEditPage={false}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 }

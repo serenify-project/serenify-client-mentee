@@ -33,7 +33,6 @@ export default function LoginScreen() {
     try {
       // await AsyncStorage.clear();
       const token = await dispatch(login(user));
-      // const token = await AsyncStorage.getItem("access_token");
       if (token) {
         navigation.navigate("Home");
       } else {

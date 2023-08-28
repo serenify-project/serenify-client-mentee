@@ -10,7 +10,7 @@ export default function HomeScreen() {
   const navigate = useNavigation();
   const dispatch = useDispatch();
   const { packages, packagesLoading } = useSelector((state) => state.package);
-  console.log(packages);
+
   useEffect(() => {
     dispatch(fetchPackages());
   }, []);
