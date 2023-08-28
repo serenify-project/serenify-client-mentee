@@ -7,19 +7,23 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { themeColors } from "../themes";
 import { PencilSquareIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUserById } from "../stores/actions/actionCreators.js/user";
 const ios = Platform.OS == "ios";
 const verticalMargin = ios ? "" : " my-3";
 var { width, height } = Dimensions.get("window");
 export default function ProfileScreen() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  // TODO
-  // useEffect utk findUserById?
-  // isi tiap data scr dinamis
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
+  useEffect(() => {
+    dispatch(getUserById(user.id));
+  }, []);
   return (
     <ScrollView
       className="flex-1"
@@ -55,13 +59,11 @@ export default function ProfileScreen() {
         {/* username */}
         <View className="mt-6">
           <Text className="text-3xl text-[#1A1B4B] font-bold text-center">
-            Putri Indah
-            {/* {user.username} */}
+            {user.username}
           </Text>
           {/* Gender */}
           <Text className="text-neutral-700 text-base text-center">
-            putri@gmail.com
-            {/* {user.email} */}
+            {user.email}
           </Text>
         </View>
 
@@ -69,15 +71,13 @@ export default function ProfileScreen() {
         <View className="mx-28 p-4 mt-6 flex-row justify-between items-center rounded-full border-2 border-[#1A1B4B]">
           <View className="border-r-2 border-r-[#1A1B4B] px-2 items-center">
             <Text className="text-[#1A1B4B] font-semibold mx-2 ">Gender</Text>
-            <Text className="text-neutral-700 text-sm">
-              Female {/* {user.gender} */}
-            </Text>
+            <Text className="text-neutral-700 text-sm">{user.gender}</Text>
           </View>
 
           <View className="px-2 items-center">
             <Text className="text-[#1A1B4B] font-semibold">Birthday</Text>
             <Text className="text-neutral-700 text-sm ">
-              1964-09-02 {/* {user.birthYear} */}
+              {new Date(user.birthDate).toLocaleDateString()}
             </Text>
           </View>
         </View>

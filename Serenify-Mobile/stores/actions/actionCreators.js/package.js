@@ -46,12 +46,11 @@ export function fetchPackages() {
         },
       });
       const responseJSON = await response.json();
-      console.log(responseJSON);
       dispatch(fetchPackagesSuccess(responseJSON));
     } catch (error) {
       console.log(err);
     } finally {
-      // dispatch(fetchPackagesLoading(false));
+      dispatch(fetchPackagesLoading(false));
     }
   };
 }

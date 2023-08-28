@@ -14,7 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Form({ data, handleChange, handleSubmit }) {
+export default function Form({ data, handleChange, handleSubmit, isEditPage }) {
   const navigation = useNavigation();
 
   return (
@@ -63,15 +63,23 @@ export default function Form({ data, handleChange, handleSubmit }) {
               onChangeText={(text) => handleChange("email", text)}
               placeholder="Enter Email"
             />
+
             {/* Password */}
-            <Text className="text-gray-700 ml-4">Password</Text>
-            <TextInput
-              className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-7"
-              secureTextEntry
-              onChangeText={(text) => handleChange("password", text)}
-              value={data.password}
-              placeholder="Enter Password"
-            />
+            {!isEditPage ? (
+              <>
+                <Text className="text-gray-700 ml-4 mb-2">Password</Text>
+                <TextInput
+                  className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-2"
+                  secureTextEntry
+                  onChangeText={(text) => handleChange("password", text)}
+                  value={data.password}
+                  placeholder="Enter Password"
+                />
+              </>
+            ) : (
+              <></>
+            )}
+
             {/* Gender */}
             <Text className="text-gray-700 ml-4">Gender</Text>
             <TextInput
@@ -95,7 +103,7 @@ export default function Form({ data, handleChange, handleSubmit }) {
               style={{ backgroundColor: themeColors.bg2 }}
             >
               <Text className="font-xl font-bold text-center text-gray-700">
-                Submit
+                {!isEditPage ? "SignUp" : "Edit"}
               </Text>
             </TouchableOpacity>
           </View>
