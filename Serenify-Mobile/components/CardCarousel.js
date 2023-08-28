@@ -2,13 +2,21 @@ import { View, Text, TouchableWithoutFeedback, Dimensions } from "react-native";
 import React from "react";
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { fetchPackageDetail } from "../stores/actions/actionCreators.js/package";
 var { width, height } = Dimensions.get("window");
 export default function CardCarousel({ data, name }) {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    // Payment
-    navigation.navigate("Package");
+  const handleClick = async (paket) => {
+    try {
+      // mengupdate store dengan paket yg terpilih
+      await dispatch(fetchPackageDetail(paket.id));
+      navigation.navigate("Package");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <View className="mb-8">

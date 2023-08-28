@@ -59,19 +59,19 @@ export function fetchPackageDetail(id) {
   return async (dispatch) => {
     try {
       console.log("fetchDetail berjalan dengan ID:", id);
-      // dispatch(fetchDetailPackageLoading(true));
-      // const response = await fetch(API_URL + `/movie/${id}`, {
-      //   method: "GET",
-      //   headers: {
-      //     access_token: localStorage.getItem("access_token"),
-      //   },
-      // });
-      // const responseJSON = await response.json();
-      // dispatch(fetchPackageDetailSuccess(responseJSON));
-    } catch (error) {
+      dispatch(fetchDetailPackageLoading(true));
+      const response = await fetch(API_URL + `/packages/${id}`, {
+        method: "GET",
+        headers: {
+          access_token: await AsyncStorage.getItem("access_token"),
+        },
+      });
+      const responseJSON = await response.json();
+      dispatch(fetchPackageDetailSuccess(responseJSON));
+    } catch (err) {
       console.log(err);
     } finally {
-      // dispatch(fetchDetailPackageLoading(false));
+      dispatch(fetchDetailPackageLoading(false));
     }
   };
 }

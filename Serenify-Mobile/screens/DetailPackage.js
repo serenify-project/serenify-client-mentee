@@ -1,12 +1,54 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { themeColors } from "../themes";
 import React from "react";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  initPayment,
+  paymentSuccess,
+} from "../stores/actions/actionCreators.js/payment";
+import { useStripe } from "@stripe/stripe-react-native";
 export default function DetailPackage() {
   const navigation = useNavigation();
-  const handleEnroll = () => {
-    console.log("Pemanggilan Stripe");
+  const dispatch = useDispatch();
+  // STRIPE
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const { packageDetail } = useSelector((state) => state.package);
+  const handleEnroll = async () => {
+    try {
+      console.log("Pemanggilan Stripe dengan ID:", packageDetail.id);
+      const intent = await dispatch(initPayment(packageDetail.id));
+      console.log(intent);
+
+      const initResponse = await initPaymentSheet({
+        merchantDisplayName: "Serenify",
+        paymentIntentClientSecret: intent.clientSecret,
+      });
+      if (initResponse.error) {
+        console.log(initResponse.error);
+        Alert.alert("Something went wrong");
+        return;
+      }
+      const paymentResponse = await presentPaymentSheet();
+      if (paymentResponse.error) {
+        Alert.alert(
+          `${paymentResponse.error.code}`,
+          paymentResponse.error.message
+        );
+        return;
+      }
+      await dispatch(paymentSuccess(packageDetail.id));
+      navigation.navigate("Home");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <View
@@ -32,10 +74,14 @@ export default function DetailPackage() {
       >
         <View className="space-y-2  border-b-2 border-neutral-400 pb-2 mt-6">
           <Text className="text-3xl font-bold text-[#1A1B4B]  ">
-            Super Package
+            {packageDetail.name}
           </Text>
           <Text className="text-2xl font-bold text-neutral-700">
-            Rp.299.000
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(packageDetail.price)}
           </Text>
         </View>
         <View className="my-2">
@@ -46,13 +92,14 @@ export default function DetailPackage() {
         </View>
         <View className="my-2">
           <Text className="font-bold text-lg mt-2">Duration :</Text>
-          <Text className="font-semibold text-lg">• 1 Hour</Text>
+          <Text className="font-semibold text-lg">
+            • 1 {packageDetail.duration}
+          </Text>
         </View>
         <View className="my-2">
           <Text className="font-bold text-lg mt-2">• Description :</Text>
-          <Text className="font-semibold text-md text-base">
-            Paket yang cocok bila kamu lagi ingin irit budget, paket ini akan
-            berlangsung selama 2 jam. Saya gak tau bang , saya cuman kerja bang.
+          <Text className=" text-md text-base">
+            {packageDetail.description}
           </Text>
         </View>
         <TouchableOpacity onPress={handleEnroll}>
