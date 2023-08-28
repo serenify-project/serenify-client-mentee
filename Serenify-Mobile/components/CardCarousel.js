@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 var { width, height } = Dimensions.get("window");
 export default function CardCarousel({ data, name }) {
   const navigation = useNavigation();
+
   const handleClick = () => {
     // Payment
     navigation.navigate("Package");
@@ -47,35 +48,27 @@ const Package = ({ item, handleClick }) => {
           <View className="flex-1">
             <Text className="text-black text-lg font-semibold">PAKET</Text>
             <Text className="text-black text-xl font-semibold">
-              Small {/* {item.name} */}
+              {item.name}
             </Text>
           </View>
 
           <Text className="text-[#3E6D9C] text-2xl font-bold">
-            Rp.299k {/* {item.price} */}
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(item.price)}
           </Text>
         </View>
-        <View className="flex-row my-4 justify-between mx-24">
-          <Text className="text-center text-xl font-semibold ">SESI</Text>
-          <Text className="text-center text-xl font-semibold ">
-            1 JAM {/* {item.duration} */}
-          </Text>
-        </View>
+
+        <Text className="text-center m-4 text-xl font-semibold ">
+          1 {item.duration}
+        </Text>
 
         <View className="mx-4 border-t-2 border-neutral-400 py-4">
           <Text className="mb-2 font-semibold">Description</Text>
           <Text className="tracking-wide text-base text-neutral-800">
-            Paket yang cocok bila kamu lagi ingin irit budget, paket ini akan
-            berlangsung selama 2 jam. Saya gak tau bang , saya cuman kerja bang.
-            {/* item.description */}
-          </Text>
-        </View>
-        {/* Schedule */}
-        <View className="my-2 mx-4">
-          <Text className="mb-2 font-semibold">Schedule</Text>
-          <Text className="tracking-wide text-base text-neutral-800">
-            Monday, 20 October 2023
-            {/* item.schedule */}
+            {item.description.slice(0, 200) + "..."}
           </Text>
         </View>
       </View>

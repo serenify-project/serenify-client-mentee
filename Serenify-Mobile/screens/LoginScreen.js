@@ -31,9 +31,9 @@ export default function LoginScreen() {
 
   const handleSubmit = async (event) => {
     try {
-      dispatch(login(user));
       // await AsyncStorage.clear();
-      const token = await AsyncStorage.getItem("access_token");
+      const token = await dispatch(login(user));
+      // const token = await AsyncStorage.getItem("access_token");
       if (token) {
         navigation.navigate("Home");
       } else {
@@ -42,7 +42,7 @@ export default function LoginScreen() {
           "Please check your username/password"[
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ],
-          { cancelable: false },
+          { cancelable: false }
         );
       }
     } catch (err) {
