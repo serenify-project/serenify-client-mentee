@@ -30,7 +30,7 @@ import { StripeProvider } from "@stripe/stripe-react-native";
 // ThemeColors
 import { themeColors } from "../themes";
 import { LogBox, View } from "react-native";
-
+import VideoCallScreen from "../screens/VideoCallScreen";
 // Functions
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -108,6 +108,7 @@ function HomeTabs() {
       })}
     >
       <Tab.Screen name="Home_" component={HomeScreen} />
+      <Tab.Screen name="VideoCall" component={VideoCallScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -130,6 +131,12 @@ const menuIcons = (route, focused) => {
       <ChatOutline size="30" strokeWidth={2} color={themeColors.bg3} />
     );
   } else if (route.name === "Profile") {
+    icon = focused ? (
+      <UserSolid size="30" color={themeColors.bg3} />
+    ) : (
+      <UserOutline size="30" strokeWidth={2} color={themeColors.bg3} />
+    );
+  } else if (route.name === "VideoCall") {
     icon = focused ? (
       <UserSolid size="30" color={themeColors.bg3} />
     ) : (
