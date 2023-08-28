@@ -26,6 +26,7 @@ import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import DetailPackage from "../screens/DetailPackage";
+import { StripeProvider } from "@stripe/stripe-react-native";
 // ThemeColors
 import { themeColors } from "../themes";
 import { LogBox, View } from "react-native";
@@ -39,45 +40,50 @@ LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
 
+// PublishableKey
+const STRIPE_KEY =
+  "pk_test_51Nihe8J9rr50hPJ7wcRlTiPo8WEcrHyJxpDH9noel8JjAKrKB3dEkOMKUpDyd6iTQ9fdZvakizFw8dh5zi0Inlkk00gsKAVi6K";
 // Component
 export default function AppNavigation() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen
-            name="Home"
-            options={{ headerShown: false }}
-            component={HomeTabs}
-          />
-          <Stack.Screen
-            name="Welcome"
-            options={{ headerShown: false }}
-            component={WelcomeScreen}
-          />
-          <Stack.Screen
-            name="Login"
-            options={{ headerShown: false }}
-            component={LoginScreen}
-          />
-          <Stack.Screen
-            name="SignUp"
-            options={{ headerShown: false }}
-            component={SignUpScreen}
-          />
-          <Stack.Screen
-            name="Edit"
-            options={{ headerShown: false }}
-            component={EditProfileScreen}
-          />
-          <Stack.Screen
-            name="Package"
-            options={{ headerShown: false }}
-            component={DetailPackage}
-          />
-          {/* Nambah screen payment */}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <StripeProvider publishableKey={STRIPE_KEY}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Welcome">
+            <Stack.Screen
+              name="Home"
+              options={{ headerShown: false }}
+              component={HomeTabs}
+            />
+            <Stack.Screen
+              name="Welcome"
+              options={{ headerShown: false }}
+              component={WelcomeScreen}
+            />
+            <Stack.Screen
+              name="Login"
+              options={{ headerShown: false }}
+              component={LoginScreen}
+            />
+            <Stack.Screen
+              name="SignUp"
+              options={{ headerShown: false }}
+              component={SignUpScreen}
+            />
+            <Stack.Screen
+              name="Edit"
+              options={{ headerShown: false }}
+              component={EditProfileScreen}
+            />
+            <Stack.Screen
+              name="Package"
+              options={{ headerShown: false }}
+              component={DetailPackage}
+            />
+            {/* Nambah screen payment */}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </StripeProvider>
     </Provider>
   );
 }

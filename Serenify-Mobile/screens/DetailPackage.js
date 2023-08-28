@@ -3,10 +3,15 @@ import { themeColors } from "../themes";
 import React from "react";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { initPayment } from "../stores/actions/actionCreators.js/payment";
 export default function DetailPackage() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { packageDetail } = useSelector((state) => state.package);
   const handleEnroll = () => {
-    console.log("Pemanggilan Stripe");
+    console.log("Pemanggilan Stripe dengan ID:", packageDetail.id);
+    dispatch(initPayment(packageDetail.id));
   };
   return (
     <View
@@ -32,10 +37,14 @@ export default function DetailPackage() {
       >
         <View className="space-y-2  border-b-2 border-neutral-400 pb-2 mt-6">
           <Text className="text-3xl font-bold text-[#1A1B4B]  ">
-            Super Package
+            {packageDetail.name}
           </Text>
           <Text className="text-2xl font-bold text-neutral-700">
-            Rp.299.000
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+              minimumFractionDigits: 0,
+            }).format(packageDetail.price)}
           </Text>
         </View>
         <View className="my-2">
@@ -46,13 +55,14 @@ export default function DetailPackage() {
         </View>
         <View className="my-2">
           <Text className="font-bold text-lg mt-2">Duration :</Text>
-          <Text className="font-semibold text-lg">• 1 Hour</Text>
+          <Text className="font-semibold text-lg">
+            • 1 {packageDetail.duration}
+          </Text>
         </View>
         <View className="my-2">
           <Text className="font-bold text-lg mt-2">• Description :</Text>
-          <Text className="font-semibold text-md text-base">
-            Paket yang cocok bila kamu lagi ingin irit budget, paket ini akan
-            berlangsung selama 2 jam. Saya gak tau bang , saya cuman kerja bang.
+          <Text className=" text-md text-base">
+            {packageDetail.description}
           </Text>
         </View>
         <TouchableOpacity onPress={handleEnroll}>
