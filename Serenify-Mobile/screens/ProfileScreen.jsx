@@ -13,6 +13,7 @@ import { PencilSquareIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "../stores/actions/actionCreators.js/user";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const ios = Platform.OS == "ios";
 const verticalMargin = ios ? "" : " my-3";
 var { width, height } = Dimensions.get("window");
@@ -20,7 +21,16 @@ export default function ProfileScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  // Logout
+  const logout = async () => {
+    try {
+      await AsyncStorage.clear();
+      navigation.navigate("Welcome");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     dispatch(getUserById(user.id));
   }, []);
@@ -81,6 +91,12 @@ export default function ProfileScreen() {
             </Text>
           </View>
         </View>
+        <TouchableOpacity
+          onPress={logout}
+          className="items-center my-10 mx-auto border rounded-md"
+        >
+          <Text className="font-semibol m-2">Logout</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </ScrollView>
   );
