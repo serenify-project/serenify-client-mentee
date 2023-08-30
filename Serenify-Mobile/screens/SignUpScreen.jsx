@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useState } from "react";
 import Form from "../components/Form";
 import { register } from "../stores/actions/actionCreators.js/user";
@@ -51,7 +51,7 @@ export default function SignUpScreen() {
         },
         body: JSON.stringify(user),
       });
-      console.log(await response.json());
+      // console.log(await response.json());
       if (response.ok) {
         // Registration successful
         console.log("Registration successful");
@@ -67,6 +67,7 @@ export default function SignUpScreen() {
 
   return (
     <Form
+      title={"Sign Up"}
       data={user}
       isEditPage={false}
       handleChange={setUser}

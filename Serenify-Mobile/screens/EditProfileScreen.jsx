@@ -40,6 +40,7 @@ export default function EditProfileScreen() {
   };
   return (
     <Form
+    title={"Edit Profile"}
       data={form}
       isEditPage={true}
       handleChange={handleChange}

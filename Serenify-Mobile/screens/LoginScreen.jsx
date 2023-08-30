@@ -5,9 +5,10 @@ import {
   Image,
   TextInput,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { themeColors } from "../themes";
 import { useNavigation } from "@react-navigation/native";
@@ -36,12 +37,13 @@ export default function LoginScreen() {
       if (token) {
         navigation.navigate("Home");
       } else {
+        console.log("else");
         Alert.alert(
           "Invalid Username/Password",
           "Please check your username/password"[
             { text: "OK", onPress: () => console.log("OK Pressed") }
           ],
-          { cancelable: false }
+          { cancelable: false },
         );
       }
     } catch (err) {
@@ -89,16 +91,16 @@ export default function LoginScreen() {
           />
           <Text className="text-gray-700 ml-4">Password</Text>
           <TextInput
-            className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
+            className="p-4 bg-gray-100 text-gray-700 rounded-xl mb-3"
             secureTextEntry
             autoCapitalize="none"
             placeholder="password"
             onChangeText={(text) => handleChange("password", text)}
             value={user.password}
           />
-          <TouchableOpacity className="flex items-end">
+          {/* <TouchableOpacity className="flex items-end">
             <Text className="text-gray-700 mb-5">Forgot Password?</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={handleSubmit}
             className="py-3  rounded-xl"
