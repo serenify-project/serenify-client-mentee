@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   birthdayContainer: {
-    width: '20%',
+    width: '50%',
     alignItems: 'flex-start',
     marginLeft: 10
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   genderContainer: {
-    width: '20%',
+    width: '50%',
     alignItems: 'flex-end',
     marginRight: 10
   },
