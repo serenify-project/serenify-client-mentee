@@ -16,15 +16,13 @@ import SelectDropdown from "react-native-select-dropdown";
 import React, { useState } from "react";
 import { themeColors } from "../themes";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { ArrowLeftIcon } from "react-native-heroicons/solid";
-import { useNavigation } from "@react-navigation/native";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function Form({ title, data, handleChange, handleSubmit }) {
-  const navigation = useNavigation();
+export default function Form({ title, data, handleChange, handleSubmit, isEdit = false }) {
+  const initialDate = data?.birthDate ? new Date(data?.birthDate).toLocaleDateString() : ''
   const [date, setDate] = useState(new Date());
-  const [dateOfBirth, setDateOfbirth] = useState("");
+  const [dateOfBirth, setDateOfbirth] = useState(initialDate);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const toggleDatePicker = () => {
@@ -32,7 +30,6 @@ export default function Form({ title, data, handleChange, handleSubmit }) {
   };
 
   const onChange = ({ type }, selectedDate) => {
-    console.log(selectedDate, 13);
     if (type == "set") {
       const currentDate = selectedDate;
       setDate(currentDate);
@@ -97,40 +94,47 @@ export default function Form({ title, data, handleChange, handleSubmit }) {
                   placeholder="Enter Username"
                 />
                 {/* Email */}
-                <Text className="text-gray-700 ml-2">Email Address</Text>
-                <TextInput
-                  className="p-3 bg-gray-100 text-gray-700 rounded-xl mb-3"
-                  value={data.email}
-                  onChangeText={(text) =>
-                    handleChange((val) => {
-                      return {
-                        ...val,
-                        email: text,
-                      };
-                    })
-                  }
-                  placeholder="Enter Email"
-                />
+                {!isEdit && <>
+                  <Text className="text-gray-700 ml-2">Email Address</Text>
+                  <TextInput
+                    className="p-3 bg-gray-100 text-gray-700 rounded-xl mb-3"
+                    value={data.email}
+                    onChangeText={(text) =>
+                      handleChange((val) => {
+                        return {
+                          ...val,
+                          email: text,
+                        };
+                      })
+                    }
+                    placeholder="Enter Email"
+                  />
+                </>}
                 {/* Password */}
-                <Text className="text-gray-700 ml-2">Password</Text>
-                <TextInput
-                  className="p-3 bg-gray-100 text-gray-700 rounded-xl mb-3"
-                  secureTextEntry
-                  onChangeText={(text) =>
-                    handleChange((val) => {
-                      return {
-                        ...val,
-                        password: text,
-                      };
-                    })
-                  }
-                  value={data.password}
-                  placeholder="Enter Password"
-                />
+                {!isEdit &&
+                  <>
+                    <Text className="text-gray-700 ml-2">Password</Text>
+                    <TextInput
+                      className="p-3 bg-gray-100 text-gray-700 rounded-xl mb-3"
+                      secureTextEntry
+                      onChangeText={(text) =>
+                        handleChange((val) => {
+                          return {
+                            ...val,
+                            password: text,
+                          };
+                        })
+                      }
+                      value={data.password}
+                      placeholder="Enter Password"
+                    />
+                  </>
+                }
                 {/* Gender */}
                 <Text className="text-gray-700 ml-2">Gender</Text>
                 <SelectDropdown
-                  data={["male", "female"]}
+                  defaultValue={data?.gender || ''}
+                  data={["Male", "Female"]}
                   buttonStyle={{
                     borderRadius: 10,
                     width: "100%",
@@ -186,6 +190,7 @@ export default function Form({ title, data, handleChange, handleSubmit }) {
                     <DateTimePicker
                       mode="date"
                       display="spinner"
+                      // value={data.birthDate ? new Date(data.birthDate) : new Date()}
                       value={new Date()}
                       onChange={onChange}
                       style={{ height: 120, marginTop: -10 }}
