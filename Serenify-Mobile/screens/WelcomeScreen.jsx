@@ -11,29 +11,29 @@ export default function WelcomeScreen() {
       className="flex-1"
       style={{ backgroundColor: themeColors.bg }}
     >
-      <View className="flex-1 flex justify-around my-4">
-        <View className="flex-row justify-center mt-20">
+      <View className="flex-1 flex justify-between my-4">
+        <View className="flex-row justify-center mt-[250px]">
           <Image
             source={require("../assets/test2.png")}
-            style={{ width: 300, height: 50 }}
+            style={{ flex: 1, resizeMode: "contain", width: 80, height: 45 }}
           />
         </View>
-        <Text className="text-[#1A1B4B] font-bold text-l text-center mx-4 -mt-20">
+        {/* <Text className="text-[#1A1B4B] font-bold text-l text-center mx-[50px]">
           Where professional care, convenience, and community converge to
           empower your well-being journey.
-        </Text>
-        <View className=" mb-10 space-y-4">
+        </Text> */}
+        <View className="space-y">
           <TouchableOpacity
             onPress={() => navigation.navigate("SignUp")}
             className="py-3  mx-7 rounded-xl"
             style={{ backgroundColor: themeColors.bg2 }}
           >
-            <Text className="text-xl font-bold text-center text-gray-700">
+            <Text className="text-xl font-bold text-center text-[#1A1B4B] mx-[50px]">
               Sign Up
             </Text>
           </TouchableOpacity>
-          <View className="flex-row justify-center">
-            <Text className="text-[#1A1B4B] font-semibold">
+          <View className="flex-row justify-center mt-3 ">
+            <Text className="text-[#1A1B4B] font-semibold ">
               Already have an account?
             </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
@@ -41,6 +41,7 @@ export default function WelcomeScreen() {
                 className="font-semibold "
                 style={{ color: themeColors.bg2 }}
               >
+                {" "}
                 Log In
               </Text>
             </TouchableOpacity>

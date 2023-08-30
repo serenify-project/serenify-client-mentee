@@ -80,6 +80,16 @@ export default function AppNavigation() {
               options={{ headerShown: false }}
               component={DetailPackage}
             />
+            <Stack.Screen
+              name="VideoCall"
+              options={{ headerShown: false }}
+              component={VideoCallScreen}
+            />
+            <Stack.Screen
+              name="Chat"
+              options={{ headerShown: false }}
+              component={ChatScreen}
+            />
             {/* Nambah screen payment */}
           </Stack.Navigator>
         </NavigationContainer>
@@ -108,8 +118,6 @@ function HomeTabs() {
       })}
     >
       <Tab.Screen name="Home_" component={HomeScreen} />
-      <Tab.Screen name="VideoCall" component={VideoCallScreen} />
-      <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );

@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import { themeColors } from "../themes";
 import React from "react";
@@ -40,12 +41,12 @@ export default function DetailPackage() {
       if (paymentResponse.error) {
         Alert.alert(
           `${paymentResponse.error.code}`,
-          paymentResponse.error.message
+          paymentResponse.error.message,
         );
         return;
       }
       await dispatch(paymentSuccess(packageDetail.id));
-      navigation.navigate("Home");
+      navigation.navigate("Home", { params: 'paymentSuccess' });
     } catch (err) {
       console.log(err);
     }
@@ -68,51 +69,53 @@ export default function DetailPackage() {
         </View>
       </SafeAreaView>
       {/* Card Detail */}
-      <View
-        className="flex-1 bg-neutral-100 px-8 pt-8 mx-4 mb-32 mt-12"
-        style={{ borderRadius: 50 }}
-      >
-        <View className="space-y-2  border-b-2 border-neutral-400 pb-2 mt-6">
-          <Text className="text-3xl font-bold text-[#1A1B4B]  ">
-            {packageDetail.name}
-          </Text>
-          <Text className="text-2xl font-bold text-neutral-700">
-            {new Intl.NumberFormat("id-ID", {
-              style: "currency",
-              currency: "IDR",
-              minimumFractionDigits: 0,
-            }).format(packageDetail.price)}
-          </Text>
-        </View>
-        <View className="my-2">
-          <Text className="font-bold text-lg mt-2">Schedule :</Text>
-          <Text className="font-semibold text-lg">
-            • Sunday, 18 October 2023
-          </Text>
-        </View>
-        <View className="my-2">
-          <Text className="font-bold text-lg mt-2">Duration :</Text>
-          <Text className="font-semibold text-lg">
-            • 1 {packageDetail.duration}
-          </Text>
-        </View>
-        <View className="my-2">
-          <Text className="font-bold text-lg mt-2">• Description :</Text>
-          <Text className=" text-md text-base">
-            {packageDetail.description}
-          </Text>
-        </View>
-        <TouchableOpacity onPress={handleEnroll}>
-          <View
-            className="p-4 rounded-full my-12 shadow-md "
-            style={{ backgroundColor: themeColors.bg2 }}
-          >
-            <Text className="text-center font-bold text-[#1A1B4B] text-xl ">
-              Enroll
+      <ScrollView>
+        <View
+          className="flex-1 bg-neutral-100 px-8 pt-8 mx-4 mb-32 mt-12"
+          style={{ borderRadius: 50 }}
+        >
+          <View className="space-y-2  border-b-2 border-neutral-400 pb-2 mt-6">
+            <Text className="text-3xl font-bold text-[#1A1B4B]  ">
+              {packageDetail.name}
+            </Text>
+            <Text className="text-2xl font-bold text-neutral-700">
+              {new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0,
+              }).format(packageDetail.price)}
             </Text>
           </View>
-        </TouchableOpacity>
-      </View>
+          <View className="my-2">
+            <Text className="font-bold text-lg mt-2">Schedule :</Text>
+            <Text className="font-semibold text-lg">
+              • Sunday, 18 October 2023
+            </Text>
+          </View>
+          <View className="my-2">
+            <Text className="font-bold text-lg mt-2">Duration :</Text>
+            <Text className="font-semibold text-lg">
+              • 1 {packageDetail.duration}
+            </Text>
+          </View>
+          <View className="my-2">
+            <Text className="font-bold text-lg mt-2">• Description :</Text>
+            <Text className=" text-md text-base">
+              {packageDetail.description}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={handleEnroll}>
+            <View
+              className="p-4 rounded-full my-12 shadow-md "
+              style={{ backgroundColor: themeColors.bg2 }}
+            >
+              <Text className="text-center font-bold text-[#1A1B4B] text-xl ">
+                Enroll
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }

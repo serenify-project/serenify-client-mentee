@@ -53,7 +53,6 @@ export function getUserById(id) {
         method: "GET",
       });
       const responseJSON = await response.json();
-      console.log(responseJSON);
       dispatch(getUserSuccess(responseJSON));
     } catch (err) {
       console.log(err);
@@ -90,8 +89,7 @@ export function editUser(userData, id) {
     try {
       // console.log(userData, id);
       const token = await AsyncStorage.getItem("access_token");
-      console.log(token);
-      const response = await fetch(API_URL + `/users/${id}`, {
+      const response = await fetch(API_URL + `/users/detail`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -101,7 +99,6 @@ export function editUser(userData, id) {
         body: JSON.stringify(userData),
       });
       const data = await response.json();
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
