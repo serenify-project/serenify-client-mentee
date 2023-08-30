@@ -116,18 +116,13 @@ export default function HomeScreen({ route }) {
   return (
     <SafeAreaProvider
       className="flex-1"
-      style={{ backgroundColor: themeColors.bg, flex: 1 }}
+      style={{ backgroundColor: themeColors.bg, flex: 1 , position: "relative"}}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <View className="flex-row justify-between items-center mx-4">
-          {/* Replace with username */}
-          <Text className="text-[#1A1B4B] mr-4  text-base" style={{textTransform: "capitalize"}}>Hello, {username} </Text>
-        </View>
-      </SafeAreaView>
-      <View
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
-      >
+      <View className="flex-row justify-between items-centers">
+        {/* Replace with username */}
+        <Text className="text-[#1A1B4B] text-base" style={{textTransform: "capitalize", fontWeight: 'bold', marginLeft: 25, textDecorationLine: "underline"}}>Hello, {username}!</Text>
+      </View>
         {!isSubscriber && <CardCarousel data={packages}/>}
         {isSubscriber && (
           <View style={styles.subscribedContainer}>
@@ -148,7 +143,7 @@ export default function HomeScreen({ route }) {
             </View>
           </View>
         )}
-      </View>
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }
@@ -156,9 +151,9 @@ export default function HomeScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
-      backgroundColor: "#fff",
+      position: "absolute",
+      bottom: 0,
+      right: 0
   },
   chatButton: {
       height: 50,
@@ -172,17 +167,17 @@ const styles = StyleSheet.create({
       },
       shadowRadius: 8,
       marginRight: 20,
-      marginBottom: 20,
+      marginBottom: 45,
   },
   title: {
     marginLeft: 25,
     fontSize: 28,
     fontWeight: '600',
-    marginTop: 45,
+    marginTop: 20,
     marginBottom: 5
   },
   subscribedContainer: {
     height: '100%',
-    backgroundColor: 'white'
+    // backgroundColor: 'white'
   }
 });

@@ -67,7 +67,7 @@ export default function LoginScreen() {
         </View>
         <View className="flex-row justify-center ">
         <Image
-            source={require("../assets/test2.png")}
+            source={require("../assets/logo-serenify.png")}
             style={{ flex: 1, resizeMode: "contain", width: 80, height: 45, marginBottom: 50, marginTop: 50}}
           />
         </View>
@@ -94,9 +94,6 @@ export default function LoginScreen() {
             onChangeText={(text) => handleChange("password", text)}
             value={user.password}
           />
-          {/* <TouchableOpacity className="flex items-end">
-            <Text className="text-gray-700 mb-5">Forgot Password?</Text>
-          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={handleSubmit}
             className="py-3  rounded-xl"
@@ -113,7 +110,7 @@ export default function LoginScreen() {
             Don't have an account?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-            <Text className="font-semibold " style={{ color: themeColors.bg2 }}>
+            <Text className="font-semibold " style={{ color: themeColors.bg3 }}>
               {" "}
               Sign Up
             </Text>

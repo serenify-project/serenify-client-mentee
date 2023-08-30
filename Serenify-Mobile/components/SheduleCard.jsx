@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingRight: 10, // INI BIAR MEPET KE KANAN DIKIT
     width: "90%",
-    // backgroundColor: "red",
+    backgroundColor: "white",
     borderRadius: 20,
     borderWidth: 2,
     borderColor: 'rgba(0, 0, 0, 0.2)'

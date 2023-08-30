@@ -14,7 +14,7 @@ export default function WelcomeScreen() {
       <View className="flex-1 flex justify-between my-4">
         <View className="flex-row justify-center mt-[250px]">
           <Image
-            source={require("../assets/test2.png")}
+            source={require("../assets/logo-serenify.png")}
             style={{ flex: 1, resizeMode: "contain", width: 80, height: 45 }}
           />
         </View>
@@ -39,7 +39,7 @@ export default function WelcomeScreen() {
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text
                 className="font-semibold "
-                style={{ color: themeColors.bg2 }}
+                style={{ color: themeColors.bg3 }}
               >
                 {" "}
                 Log In

@@ -74,8 +74,8 @@ export default function Form({ title, data, handleChange, handleSubmit, isEdit =
             {/* Form */}
             <Text style={Styles.formTitle}>{title}</Text>
             <View
-              className="flex-1 bg-white px-8 pt-8 mb-8"
-              style={{ borderRadius: 30, margin: 25 }}
+              className="flex-1 bg-white px-8 pt-8 mt-8"
+              style={{ borderRadius: 50, }}
             >
               <View className="form space-y-2">
                 {/* Username */}
@@ -237,7 +237,7 @@ export default function Form({ title, data, handleChange, handleSubmit, isEdit =
                   style={{
                     backgroundColor: themeColors.bg2,
                     height: 40,
-                    marginBottom: 40,
+                    marginBottom: "100%",
                   }}
                 >
                   <Text
