@@ -100,12 +100,13 @@ export default function HomeScreen({ route }) {
     dispatch(fetchPackages());
     getName() 
     getData()
-    getMentorSchedule()
+    
   }, [params]);
   
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getData()
+      getMentorSchedule()
     })
 
     return unsubscribe
