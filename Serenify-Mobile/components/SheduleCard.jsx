@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import { themeColors } from "../themes";
 import { API_URL } from "../config/api";
-import { Ionicons, Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const { height } = Dimensions.get("screen");
 
 const options = {
@@ -23,7 +23,6 @@ const options = {
 };
 
 export default function ScheduleCard({ data }) {
-
   const navigation = useNavigation();
 
   async function createRoom() {
@@ -36,34 +35,48 @@ export default function ScheduleCard({ data }) {
           access_token: value,
         },
       })
-      const room = await response.json();
-      const roomUrl = room.url;
+      if (response.ok) {
+        const room = await response.json();
+        return room.url;
+      } else {
+        return
+      }
     } catch (err) {
       console.log(err);
     }
   }
 
   async function action_todo() {
-    const value = await AsyncStorage.getItem("access_token");
-    await fetch (`${API_URL}/rooms`, {
-      method: "patch",
-      headers: {
-        "Content-Type": "application/json",
-        access_token: value,
-      },
-    })
+    try {
+      const value = await AsyncStorage.getItem("access_token");
+      const response = await fetch (`${API_URL}/schedules/${data.id}`, {
+        method: "patch",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: value,
+        },
+      })
+      if (!response.ok) {
+        throw Error('response not ok')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleVideoCall = async () => {
+    try {
+      const room = await createRoom()
+      await action_todo()
+
+      navigation.navigate('VideoCall', room)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
-    <TouchableOpacity style={styles.cardContainer}>
-      {/* <TouchableOpacity onPress={() => navigation.navigate("VideoCall")}>
-        <Text>
-          {data.User.username}
-        </Text>
-        <Text>Room: {data.status}</Text>
-        <Text>Date: {data.date}</Text>
-        <Text>Join</Text>
-      </TouchableOpacity> */}
+    <TouchableOpacity style={[styles.cardContainer, data.status !== 'available' && styles.disabled]} onPress={handleVideoCall} disabled={data.status !== 'available'}>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{data.User.username}</Text>
         <View style={styles.iconAndTextContainer}>
@@ -102,6 +115,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     borderColor: 'rgba(0, 0, 0, 0.2)'
+  },
+  disabled: {
+    backgroundColor: "gray",
   },
   iconContainer: {
     // backgroundColor: 'yellow',
