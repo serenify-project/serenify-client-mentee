@@ -87,15 +87,9 @@ export default function DetailPackage() {
             </Text>
           </View>
           <View className="my-2">
-            <Text className="font-bold text-lg mt-2">Schedule :</Text>
-            <Text className="font-semibold text-lg">
-              • Sunday, 18 October 2023
-            </Text>
-          </View>
-          <View className="my-2">
             <Text className="font-bold text-lg mt-2">Duration :</Text>
-            <Text className="font-semibold text-lg">
-              • 1 {packageDetail.duration}
+            <Text className="font-semibold text-lg" style={{textTransform: "capitalize"}}>
+              • {packageDetail.duration}
             </Text>
           </View>
           <View className="my-2">

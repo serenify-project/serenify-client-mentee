@@ -32,18 +32,18 @@ export default function ChatScreen() {
         {...props}
         textStyle={{
           right: {
-            color: "white",
+            color: "black",
           },
           left: {
-            color: "white",
+            color: "black",
           },
         }}
         wrapperStyle={{
           right: {
-            backgroundColor: "#FF901C",
+            backgroundColor: "#ffbd90",
           },
           left: {
-            backgroundColor: "#1A1B4B",
+            backgroundColor: "white",
           },
         }}
       />
@@ -101,8 +101,8 @@ export default function ChatScreen() {
     });
   }, []);
 
-  return (
-    <>
+  return ( 
+    <SafeAreaView style={{ flex: 1 }}>
     {user &&
       <GiftedChat
         messages={messages}
@@ -115,12 +115,12 @@ export default function ChatScreen() {
         showAvatarForEveryMessage={true}
         showUserAvatar={true}
         messagesContainerStyle={{
-          backgroundColor: "white",
+          backgroundColor: "#F2F3F2",
         }}
         renderBubble={renderBubble}
         renderUsernameOnMessage={true}
       />
     }
-    </>
+    </SafeAreaView>
   );
 }

@@ -1,10 +1,13 @@
-import { View, Text, TouchableWithoutFeedback, Dimensions } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Dimensions, Image } from "react-native";
 import React from "react";
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { fetchPackageDetail } from "../stores/actions/actionCreators.js/package";
-var { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
+
+
+
 export default function CardCarousel({ data, name }) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -19,12 +22,10 @@ export default function CardCarousel({ data, name }) {
     }
   };
   return (
-    <View className="mb-8">
-      <Text className="text-[#1A1B4B] text-2xl mx-4 mb-4 font-bold">
-        {name}
-      </Text>
-      <View className="mb-4">
+    <View className="mb-40" >
+      <View className="mb-4" style={{height: "100%"}}>
         <Carousel
+        style={{flex: 1, height: "100%"}}
           data={data}
           renderItem={({ item }) => (
             <Package handleClick={handleClick} item={item} />
@@ -34,6 +35,7 @@ export default function CardCarousel({ data, name }) {
           sliderWidth={width}
           itemWidth={width * 0.72}
           slideStyle={{
+            flex: 1,
             display: "flex",
             alignItems: "center",
             shadowColor: "gray",
@@ -41,6 +43,7 @@ export default function CardCarousel({ data, name }) {
             shadowOffset: { width: 5, height: 5 },
             shadowOpacity: 1,
           }}
+          // vertical={true}
         />
       </View>
     </View>
@@ -51,34 +54,29 @@ const Package = ({ item, handleClick }) => {
   return (
     // Jika di tekan akan langsung ke card utk bayar
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-      <View className="bg-neutral-200 w-full h-[400px] rounded-xl my-2">
-        <View className="flex-row justify-between items-center mx-4 mt-8 border-b-2 border-neutral-400 pb-2">
+      <View className="bg-neutral-200 w-full rounded-xl my-2" style={{height: "90%", marginTop: 50, backgroundColor: "white", borderRadius: 10}}>
+        <Image source={{uri: "https://doodleipsum.com/700x394/flat"}} height={250}/>
+        <View className="flex-row justify-between items-center mx-4 mt-5 border-b-2 border-neutral-400 pb-2">
           <View className="flex-1">
-            <Text className="text-black text-lg font-semibold">PAKET</Text>
-            <Text className="text-black text-xl font-semibold">
-              {item.name}
+            <Text className="text-black text-xl font-bold" style={{textAlign: "center"}}>
+              {item.name} Package
             </Text>
           </View>
-
-          <Text className="text-[#3E6D9C] text-2xl font-bold">
+        </View>
+          <Text className="text-[#5f8ecb] mt-8 text-2xl font-bold" style={{textAlign: "center"}}>
             {new Intl.NumberFormat("id-ID", {
               style: "currency",
               currency: "IDR",
               minimumFractionDigits: 0,
             }).format(item.price)}
           </Text>
-        </View>
 
-        <Text className="text-center m-4 text-xl font-semibold ">
-          1 {item.duration}
+        <Text className="text-center text-xl font-semibold text-black" style={{textTransform: "capitalize"}}>
+        {item.duration}
         </Text>
-
-        <View className="mx-4 border-t-2 border-neutral-400 py-4">
-          <Text className="mb-2 font-semibold">Description</Text>
-          <Text className="tracking-wide text-base text-neutral-800">
-            {item.description.slice(0, 200) + "..."}
-          </Text>
-        </View>
+        <Text className="text-center m-4 text-xl font-semibold text-black">
+        Click for details!
+        </Text>
       </View>
     </TouchableWithoutFeedback>
   );
