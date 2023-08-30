@@ -28,7 +28,7 @@ export default function HomeScreen({ route }) {
   const dispatch = useDispatch();
   const { packages, packagesLoading } = useSelector((state) => state.package);
 
-  const renderItem = ({ item }) => < ScheduleCard style={{ flex: 1 }} data={item} />;
+  const renderItem = ({ item }) => <ScheduleCard data={item} />;
 
   const getMentorSchedule = async () => {
     try {
@@ -116,40 +116,49 @@ export default function HomeScreen({ route }) {
   return (
     <SafeAreaProvider
       className="flex-1"
-      style={{ backgroundColor: themeColors.bg, flex: 1}}
+      style={{ backgroundColor: themeColors.bg, flex: 1 }}
     >
-      <SafeAreaView >
-        <View className="flex-row justify-between items-center mx-4" style={{}}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View className="flex-row justify-between items-center mx-4">
           {/* Replace with username */}
           <Text className="text-[#1A1B4B] mr-4  text-base" style={{textTransform: "capitalize"}}>Hello, {username} </Text>
         </View>
-        {isSubscriber ? (
-          <View style={{ height: "100%", position: "relative"}}>
-            <FlatList 
-              data={scheduleMentor}
-              renderItem={renderItem}
-              keyExtractor={(item) => String(item.id)}
-            />
-            <View style={styles.container}>
-              <TouchableOpacity
-                  onPress={() => navigation.navigate("Chat")}
-                  style={styles.chatButton}
-              >
-                  <Entypo name="chat" size={35}  />
-              </TouchableOpacity>
-          </View>
-        </View>
-        ) : ( <CardCarousel data={packages}/>)}
       </SafeAreaView>
+      <View
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
+        {!isSubscriber && <CardCarousel data={packages}/>}
+        {isSubscriber && (
+          <View style={styles.subscribedContainer}>
+          <Text style={styles.title}>Serenity Rooms</Text>
+              <FlatList
+                data={scheduleMentor}
+                renderItem={renderItem}
+                keyExtractor={(item) => String(item.id)}
+
+              />
+              <View style={styles.container}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Chat")}
+                    style={styles.chatButton}
+                >
+                    <Entypo name="chat" size={35}  />
+                </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </View>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-      position: "absolute",
-      right: 0,
-      bottom: 0
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      backgroundColor: "#fff",
   },
   chatButton: {
       height: 50,
@@ -163,6 +172,17 @@ const styles = StyleSheet.create({
       },
       shadowRadius: 8,
       marginRight: 20,
-      marginBottom: "20%",
+      marginBottom: 20,
+  },
+  title: {
+    marginLeft: 25,
+    fontSize: 28,
+    fontWeight: '600',
+    marginTop: 45,
+    marginBottom: 5
+  },
+  subscribedContainer: {
+    height: '100%',
+    backgroundColor: 'white'
   }
 });
