@@ -101,7 +101,7 @@ export default function ChatScreen() {
     });
   }, []);
 
-  return (
+  return ( 
     <>
     {user &&
       <GiftedChat

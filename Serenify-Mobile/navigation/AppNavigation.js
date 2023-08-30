@@ -31,6 +31,7 @@ import { StripeProvider } from "@stripe/stripe-react-native";
 import { themeColors } from "../themes";
 import { LogBox, View } from "react-native";
 import VideoCallScreen from "../screens/VideoCallScreen";
+import ConfirmationScreen from "../screens/Confirmation";
 // Functions
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -89,6 +90,11 @@ export default function AppNavigation() {
               name="Chat"
               options={{ headerShown: false }}
               component={ChatScreen}
+            />
+            <Stack.Screen
+              name="Confirmation"
+              options={{ headerShown: false }}
+              component={ConfirmationScreen}
             />
             {/* Nambah screen payment */}
           </Stack.Navigator>

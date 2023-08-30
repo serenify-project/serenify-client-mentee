@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import { themeColors } from "../themes";
+import { API_URL } from "../config/api";
 
 const { height } = Dimensions.get("screen");
 
@@ -18,7 +19,6 @@ export default function ScheduleCard({ data }) {
 
   async function createRoom() {
     const value = await AsyncStorage.getItem("access_token");
-    console.log(value);
     try {
       const response = await fetch(`${API_URL}/rooms`, {
         method: "post",
@@ -32,6 +32,17 @@ export default function ScheduleCard({ data }) {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async function action_todo() {
+    const value = await AsyncStorage.getItem("access_token");
+    await fetch (`${API_URL}/rooms`, {
+      method: "patch",
+      headers: {
+        "Content-Type": "application/json",
+        access_token: value,
+      },
+    })
   }
 
   return (

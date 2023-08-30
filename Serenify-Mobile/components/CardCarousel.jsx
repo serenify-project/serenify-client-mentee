@@ -19,10 +19,10 @@ export default function CardCarousel({ data, name }) {
     }
   };
   return (
-    <View className="mb-8">
-      <Text className="text-[#1A1B4B] text-2xl mx-4 mb-4 font-bold">
-        {name}
-      </Text>
+    <View className="mb-40">
+      {/* <Text className="text-[#1A1B4B] text-xl mx-4 mb-4 font-bold">
+        Become our member
+      </Text> */}
       <View className="mb-4">
         <Carousel
           data={data}
@@ -40,6 +40,7 @@ export default function CardCarousel({ data, name }) {
             shadowRadius: 5,
             shadowOffset: { width: 5, height: 5 },
             shadowOpacity: 1,
+            flex: 1
           }}
         />
       </View>
@@ -54,7 +55,7 @@ const Package = ({ item, handleClick }) => {
       <View className="bg-neutral-200 w-full h-[400px] rounded-xl my-2">
         <View className="flex-row justify-between items-center mx-4 mt-8 border-b-2 border-neutral-400 pb-2">
           <View className="flex-1">
-            <Text className="text-black text-lg font-semibold">PAKET</Text>
+            {/* <Text className="text-black text-lg font-semibold">PAKET</Text> */}
             <Text className="text-black text-xl font-semibold">
               {item.name}
             </Text>
@@ -69,8 +70,8 @@ const Package = ({ item, handleClick }) => {
           </Text>
         </View>
 
-        <Text className="text-center m-4 text-xl font-semibold ">
-          1 {item.duration}
+        <Text className="text-center m-4 text-xl font-semibold " style={{textTransform: "capitalize"}}>
+        {item.duration}
         </Text>
 
         <View className="mx-4 border-t-2 border-neutral-400 py-4">

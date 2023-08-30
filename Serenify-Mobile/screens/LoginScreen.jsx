@@ -66,13 +66,9 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
         <View className="flex-row justify-center ">
-          <Image
-            source={require("../assets/test4.png")}
-            style={{
-              width: 300,
-              height: 50,
-              marginTop: 80,
-            }}
+        <Image
+            source={require("../assets/test2.png")}
+            style={{ flex: 1, resizeMode: "contain", width: 80, height: 45, marginBottom: 50, marginTop: 50}}
           />
         </View>
       </SafeAreaView>
