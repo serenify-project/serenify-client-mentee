@@ -35,6 +35,14 @@ export default function ProfileScreen({ navigation }) {
     }
   }
 
+  useEffect(() => {
+    const unsubs = navigation.addListener('focus', () => {
+      getProfile()
+    })
+
+    return unsubs
+  }, [navigation])
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('access_token')
@@ -45,7 +53,7 @@ export default function ProfileScreen({ navigation }) {
   }
 
   const handleEdit = async () => {
-    navigation.navigate('Edit')
+    navigation.navigate('Edit', userProfile)
   }
 
   useEffect(() => {
