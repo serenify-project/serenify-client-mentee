@@ -42,7 +42,6 @@ export default function HomeScreen({ route }) {
       
       if (response.ok) {
         const data = await response.json();
-        console.log({data}, "mentor")
         setScheduleMentor(data);
       } else {
         throw Error("response not ok");
@@ -65,7 +64,6 @@ export default function HomeScreen({ route }) {
       
       if (response.ok) {
         const data = await response.json();
-        console.log({data}, "<<<<")
         setIsSubscriber(data);
       } else {
         throw Error("response not ok");
@@ -123,8 +121,7 @@ export default function HomeScreen({ route }) {
         {/* Replace with username */}
         <Text className="text-[#1A1B4B] text-base" style={{textTransform: "capitalize", fontWeight: 'bold', marginLeft: 25, textDecorationLine: "underline"}}>Hello, {username}!</Text>
       </View>
-        {!isSubscriber && <CardCarousel data={packages}/>}
-        {isSubscriber && (
+        {isSubscriber ? (
           <View style={styles.subscribedContainer}>
           <Text style={styles.title}>Serenity Rooms</Text>
               <FlatList
@@ -142,7 +139,7 @@ export default function HomeScreen({ route }) {
                 </TouchableOpacity>
             </View>
           </View>
-        )}
+        ) : <CardCarousel data={packages}/>}
       </SafeAreaView>
     </SafeAreaProvider>
   );
