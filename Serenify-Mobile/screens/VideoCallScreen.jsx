@@ -1,17 +1,8 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Button,
-  TextInput,
-  Image,
-  TouchableOpacity,
-} from "react-native";
 import { WebView } from "react-native-webview";
 
-export default function VideoCallScreen(string_url) {
+export default function VideoCallScreen({ route }) {
+  const room = route?.params
   return (
-  <WebView source={{ uri: "https://serenify.daily.co/test" }} style={{flex: 1}} />
+    <WebView source={{ uri: room }} style={{flex: 1}} />
   );
 }
-
