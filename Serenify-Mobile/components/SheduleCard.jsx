@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   iconContainer: {
-    // backgroundColor: 'yellow',
     maxWidth: 24,
     marginRight: 5
   },
@@ -130,11 +129,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   textContainer: {
-    // backgroundColor: 'blue',
     flex: 1,
   },
   imageContainer: {
-    // backgroundColor: 'green',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end'

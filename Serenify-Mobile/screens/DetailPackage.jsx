@@ -7,26 +7,55 @@ import {
   ScrollView,
 } from "react-native";
 import { themeColors } from "../themes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   initPayment,
   paymentSuccess,
 } from "../stores/actions/actionCreators.js/payment";
 import { useStripe } from "@stripe/stripe-react-native";
-export default function DetailPackage() {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "../config/api";
+import BackButton from "../components/BackButton";
+export default function DetailPackage({ route }) {
+  const id = route?.params.id
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // STRIPE
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
-  const { packageDetail } = useSelector((state) => state.package);
+  const [packageDetail, setPackageDetail] = useState({
+    id: 0,
+    name: '',
+    duration: '',
+    description: '',
+    price: 0
+  })
+
+  const getPackageDetail = async () => {
+    try {
+      const access_token = await AsyncStorage.getItem("access_token")
+      const response = await fetch(API_URL + `/packages/${id}`, {
+        method: "GET",
+        headers: {
+          access_token
+        },
+      });
+      const responseJSON = await response.json();
+      setPackageDetail(responseJSON)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getPackageDetail()
+  }, [])
+
   const handleEnroll = async () => {
     try {
-      console.log("Pemanggilan Stripe dengan ID:", packageDetail.id);
       const intent = await dispatch(initPayment(packageDetail.id));
-      console.log(intent);
 
       const initResponse = await initPaymentSheet({
         merchantDisplayName: "Serenify",
@@ -59,13 +88,7 @@ export default function DetailPackage() {
       <SafeAreaView className="flex">
         {/* Back Button */}
         <View className="flex-row justify-start">
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            className="p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
-            style={{ backgroundColor: themeColors.bg2 }}
-          >
-            <ArrowLeftIcon size="20" color="black" />
-          </TouchableOpacity>
+          <BackButton />
         </View>
       </SafeAreaView>
       {/* Card Detail */}

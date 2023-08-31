@@ -2,11 +2,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
-  Button,
   Platform,
   Pressable,
   StyleSheet,
@@ -134,7 +132,7 @@ export default function Form({ title, data, handleChange, handleSubmit, isEdit =
                 <Text className="text-gray-700 ml-2">Gender</Text>
                 <SelectDropdown
                   defaultValue={data?.gender || ''}
-                  data={["Male", "Female"]}
+                  data={["male", "female"]}
                   buttonStyle={{
                     borderRadius: 10,
                     width: "100%",
@@ -155,34 +153,6 @@ export default function Form({ title, data, handleChange, handleSubmit, isEdit =
                     });
                   }}
                 />
-                {/* <TextInput
-                  onChangeText={(text) =>
-                    handleChange((val) => {
-                      return {
-                        ...val,
-                        gender: text,
-                      };
-                    })
-                  }
-                  className="p-3 bg-gray-100 text-gray-700 rounded-xl mb-3"
-                  value={data.gender}
-                  placeholder="Male/Female"
-                /> */}
-                {/* BirthDate */}
-                {/* <Text className="text-gray-700 ml-2">Birth Date</Text>
-                <TextInput
-                  onChangeText={(text) =>
-                    handleChange((val) => {
-                      return {
-                        ...val,
-                        birthDate: text,
-                      };
-                    })
-                  }
-                  className="p-3 bg-gray-100 text-gray-700 rounded-xl mb-3"
-                  value={data.birthDate}
-                  placeholder="YYYY-MM-DD"
-                /> */}
 
                 <View>
                   <Text className="text-gray-700 ml-2">Birth Date</Text>
@@ -190,8 +160,7 @@ export default function Form({ title, data, handleChange, handleSubmit, isEdit =
                     <DateTimePicker
                       mode="date"
                       display="spinner"
-                      // value={data.birthDate ? new Date(data.birthDate) : new Date()}
-                      value={new Date()}
+                      value={date}
                       onChange={onChange}
                       style={{ height: 120, marginTop: -10 }}
                     />
@@ -237,7 +206,7 @@ export default function Form({ title, data, handleChange, handleSubmit, isEdit =
                   style={{
                     backgroundColor: themeColors.bg2,
                     height: 40,
-                    marginBottom: "100%",
+                    marginBottom: "15%",
                   }}
                 >
                   <Text

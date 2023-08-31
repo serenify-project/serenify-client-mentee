@@ -8,17 +8,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
-
-import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { themeColors } from "../themes";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { login } from "../stores/actions/actionCreators.js/user";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "../config/api";
+import BackButton from "../components/BackButton";
 export default function LoginScreen() {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  // useState and useEffect
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -30,14 +26,21 @@ export default function LoginScreen() {
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     try {
-      // await AsyncStorage.clear();
-      const token = await dispatch(login(user));
-      if (token) {
+      const response = await fetch(API_URL + "/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const access_token = data.access_token
+        await AsyncStorage.setItem('access_token', access_token)
         navigation.navigate("Home");
       } else {
-        console.log("else");
         Alert.alert(
           "Invalid Username/Password",
           "Please check your username/password"[
@@ -57,13 +60,7 @@ export default function LoginScreen() {
     >
       <SafeAreaView className="flex ">
         <View className="flex-row justify-start">
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            className=" p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
-            style={{ backgroundColor: themeColors.bg2 }}
-          >
-            <ArrowLeftIcon size="20" color="black" />
-          </TouchableOpacity>
+          <BackButton />
         </View>
         <View className="flex-row justify-center ">
         <Image

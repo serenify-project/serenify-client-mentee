@@ -1,5 +1,3 @@
-import { View, Text, TouchableOpacity } from "react-native";
-// import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, {
   useState,
@@ -8,7 +6,6 @@ import React, {
   useLayoutEffect,
 } from "react";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
-import { useNavigation } from "@react-navigation/native";
 import {
   collection,
   addDoc,
@@ -16,16 +13,13 @@ import {
   query,
   onSnapshot,
 } from "firebase/firestore";
-import * as firebase from "firebase/app";
 import { auth, database } from "../config/firebase";
-import { AntDesign } from "@expo/vector-icons";
 import { API_URL } from "../config/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState({})
-  const navigation = useNavigation();
   const renderBubble = (props) => {
     return (
       <Bubble
@@ -91,7 +85,6 @@ export default function ChatScreen() {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages),
     );
-    // setMessages([...messages, ...messages]);
     const { _id, createdAt, text, user } = messages[0];
     addDoc(collection(database, "chats"), {
       _id,
@@ -109,7 +102,6 @@ export default function ChatScreen() {
         onSend={(messages) => onSend(messages)}
         user={{
           _id: auth?.currentUser?.email,
-          // avatar: "https://i.pravatar.cc/300",
           name: user.username
         }}
         showAvatarForEveryMessage={true}

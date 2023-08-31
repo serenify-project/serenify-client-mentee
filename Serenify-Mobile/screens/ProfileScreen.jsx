@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     borderColor: 'black'
   },
   avatarContainer: {
-    // backgroundColor: 'red',
     alignItems: 'center',
     marginTop: 100,
   },
@@ -113,28 +112,23 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   buttonsContainer: {
-    // backgroundColor: 'blue',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 15,
     paddingVertical: 10
   },
   capsule: {
-    // backgroundColor: 'orange',
     flexDirection: 'row',
     borderRadius: 50,
     paddingHorizontal: 30,
     paddingVertical: 10,
-    // borderWidth: 1.5,
     justifyContent: 'center'
   },
   capsuleContainer: {
     alignItems: 'center',
-    // backgroundColor: 'purple'
   },
   container: {
     flex: 1,
-    // backgroundColor: 'yellow'
   },
   field: {
     fontWeight: '600',
@@ -155,7 +149,6 @@ const styles = StyleSheet.create({
   },
   usernameContainer: {
     alignItems: 'center',
-    // backgroundColor: 'green',
     marginTop: 10,
     marginBottom: 20,
   },

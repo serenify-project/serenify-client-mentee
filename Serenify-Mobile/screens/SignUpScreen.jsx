@@ -1,17 +1,15 @@
-import { View, Text, Image } from "react-native";
+import { Alert } from "react-native";
 import React, { useState } from "react";
 import Form from "../components/Form";
-import { register } from "../stores/actions/actionCreators.js/user";
-import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { API_URL } from "../config/api";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import BackButton from "../components/BackButton";
 export default function SignUpScreen() {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
-
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -21,14 +19,11 @@ export default function SignUpScreen() {
   });
 
   const handleRegistration = async () => {
-    console.log("register", user, "<<<<<");
-
     // regis firebase
     if (user.email !== "" && user.password !== "") {
       createUserWithEmailAndPassword(auth, user.email, user.password)
         .then((result) => {
           const userToRegister = { ...user };
-          console.log(result);
           userToRegister.userFirebaseId = result._tokenResponse.localId;
           AsyncStorage.setItem("firebaseToken", result._tokenResponse.idToken);
           return userToRegister;
@@ -39,7 +34,6 @@ export default function SignUpScreen() {
         })
         .catch((err) => Alert.alert("signup error", err.message));
     }
-    console.log(user, 1212);
   };
 
   async function handleRegisPostgres(user) {
@@ -51,10 +45,8 @@ export default function SignUpScreen() {
         },
         body: JSON.stringify(user),
       });
-      // console.log(await response.json());
       if (response.ok) {
         // Registration successful
-        console.log("Registration successful");
         navigation.navigate("Login");
       } else {
         // Registration failed
@@ -66,12 +58,17 @@ export default function SignUpScreen() {
   }
 
   return (
-    <Form
-      title={"Sign Up"}
-      data={user}
-      isEditPage={false}
-      handleChange={setUser}
-      handleSubmit={handleRegistration}
-    />
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <BackButton />
+        <Form
+          title={"Sign Up"}
+          data={user}
+          isEditPage={false}
+          handleChange={setUser}
+          handleSubmit={handleRegistration}
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

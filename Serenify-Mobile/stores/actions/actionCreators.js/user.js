@@ -1,6 +1,5 @@
 import { API_URL } from "../../../config/api";
 import { LOGGED_IN_USER_LOADING, LOGGED_IN_USER_SUCCESS } from "../actionType";
-// LocalStoragenya react native
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchDetailPackageLoading } from "./package";
 
@@ -66,18 +65,6 @@ export function register(userData) {
   return async (dispatch) => {
     try {
       userData.birthDate = new Date(userData.birthDate);
-      console.log(userData);
-      //   const response = await fetch(API_URL + "/register", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(userData),
-      //   });
-      //   const data = response.json();
-      //   if (!response.ok) {
-      //     throw data.message;
-      //   }
     } catch (err) {
       console.log(err);
     }
@@ -87,7 +74,6 @@ export function register(userData) {
 export function editUser(userData, id) {
   return async (dispatch) => {
     try {
-      // console.log(userData, id);
       const token = await AsyncStorage.getItem("access_token");
       const response = await fetch(API_URL + `/users/detail`, {
         method: "PUT",

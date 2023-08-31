@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  ScrollView,
-  Image,
   TouchableOpacity,
   StyleSheet,
   FlatList,
@@ -26,7 +24,7 @@ export default function HomeScreen({ route }) {
   const [scheduleMentor, setScheduleMentor] = useState([])
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { packages, packagesLoading } = useSelector((state) => state.package);
+  const { packages } = useSelector((state) => state.package);
 
   const renderItem = ({ item }) => <ScheduleCard data={item} />;
 
@@ -176,6 +174,5 @@ const styles = StyleSheet.create({
   },
   subscribedContainer: {
     height: '100%',
-    // backgroundColor: 'white'
   }
 });
