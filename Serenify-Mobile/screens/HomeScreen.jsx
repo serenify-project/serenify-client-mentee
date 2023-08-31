@@ -21,6 +21,7 @@ export default function HomeScreen({ route }) {
   const params = route?.params?.params
   const [isSubscriber, setIsSubscriber] = useState(false);
   const [username, setUsername] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const [scheduleMentor, setScheduleMentor] = useState([])
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ export default function HomeScreen({ route }) {
   };
 
   const getName = async () => {
+    setIsLoading(true)
     try {
       const token = await AsyncStorage.getItem("access_token");
       const response = await fetch(`${API_URL}/users/detail`, {
@@ -91,6 +93,8 @@ export default function HomeScreen({ route }) {
       
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -98,17 +102,19 @@ export default function HomeScreen({ route }) {
     dispatch(fetchPackages());
     getName() 
     getData()
-    
   }, [params]);
   
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getData()
+      getName() 
       getMentorSchedule()
     })
 
     return unsubscribe
   }, [navigation])
+
+  let greetings = isLoading ? '...' : `Hello, ${username}!`
 
   return (
     <SafeAreaProvider
@@ -118,7 +124,7 @@ export default function HomeScreen({ route }) {
       <SafeAreaView style={{ flex: 1 }}>
       <View className="flex-row justify-between items-centers">
         {/* Replace with username */}
-        <Text className="text-[#1A1B4B] text-base" style={{textTransform: "capitalize", fontWeight: 'bold', marginLeft: 25, textDecorationLine: "underline"}}>Hello, {username}!</Text>
+        <Text className="text-[#1A1B4B] text-base" style={{textTransform: "capitalize", fontWeight: 'bold', marginLeft: 25, textDecorationLine: "underline"}}>{greetings}</Text>
       </View>
         {isSubscriber ? (
           <View style={styles.subscribedContainer}>
