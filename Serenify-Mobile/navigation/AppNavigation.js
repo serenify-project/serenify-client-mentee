@@ -4,13 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   HomeIcon as HomeOutline,
   UserCircleIcon as UserOutline,
-  ShoppingBagIcon as BagOutline,
   ChatBubbleLeftIcon as ChatOutline,
 } from "react-native-heroicons/outline";
 import {
   HomeIcon as HomeSolid,
   UserCircleIcon as UserSolid,
-  ShoppingBagIcon as BagSolid,
   ChatBubbleLeftIcon as ChatSolid,
 } from "react-native-heroicons/solid";
 // Redux
@@ -31,7 +29,8 @@ import { StripeProvider } from "@stripe/stripe-react-native";
 import { themeColors } from "../themes";
 import { LogBox, View } from "react-native";
 import VideoCallScreen from "../screens/VideoCallScreen";
-import ConfirmationScreen from "../screens/Confirmation";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // Functions
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,62 +45,76 @@ const STRIPE_KEY =
   "pk_test_51Nihe8J9rr50hPJ7wcRlTiPo8WEcrHyJxpDH9noel8JjAKrKB3dEkOMKUpDyd6iTQ9fdZvakizFw8dh5zi0Inlkk00gsKAVi6K";
 // Component
 export default function AppNavigation() {
-  return (
-    <Provider store={store}>
-      <StripeProvider publishableKey={STRIPE_KEY}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Welcome">
-            <Stack.Screen
-              name="Home"
-              options={{ headerShown: false }}
-              component={HomeTabs}
-            />
-            <Stack.Screen
-              name="Welcome"
-              options={{ headerShown: false }}
-              component={WelcomeScreen}
-            />
-            <Stack.Screen
-              name="Login"
-              options={{ headerShown: false }}
-              component={LoginScreen}
-            />
-            <Stack.Screen
-              name="SignUp"
-              options={{ headerShown: false }}
-              component={SignUpScreen}
-            />
-            <Stack.Screen
-              name="Edit"
-              options={{ headerShown: false }}
-              component={EditProfileScreen}
-            />
-            <Stack.Screen
-              name="Package"
-              options={{ headerShown: false }}
-              component={DetailPackage}
-            />
-            <Stack.Screen
-              name="VideoCall"
-              options={{ headerShown: false }}
-              component={VideoCallScreen}
-            />
-            <Stack.Screen
-              name="Chat"
-              options={{ headerShown: false }}
-              component={ChatScreen}
-            />
-            <Stack.Screen
-              name="Confirmation"
-              options={{ headerShown: false }}
-              component={ConfirmationScreen}
-            />
-            {/* Nambah screen payment */}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </StripeProvider>
-    </Provider>
-  );
+  const [mounted, setMounted] = useState(false);
+  const [startingPage, setStartingPage] = useState("Welcome");
+  const selectPageToShow = async () => {
+    const access_token = await AsyncStorage.getItem("access_token");
+    if (access_token) {
+      setStartingPage("Home");
+    }
+    setMounted(true);
+  };
+
+  useEffect(() => {
+    if (!mounted) {
+      selectPageToShow();
+    }
+  }, [mounted]);
+
+  if (mounted) {
+    return (
+      <Provider store={store}>
+        <StripeProvider publishableKey={STRIPE_KEY}>
+          <NavigationContainer startingPage={startingPage}>
+            <Stack.Navigator initialRouteName={startingPage}>
+              <Stack.Screen
+                name="Home"
+                options={{ headerShown: false }}
+                component={HomeTabs}
+              />
+              <Stack.Screen
+                name="Welcome"
+                options={{ headerShown: false }}
+                component={WelcomeScreen}
+              />
+              <Stack.Screen
+                name="Login"
+                options={{ headerShown: false }}
+                component={LoginScreen}
+              />
+              <Stack.Screen
+                name="SignUp"
+                options={{ headerShown: false }}
+                component={SignUpScreen}
+              />
+              <Stack.Screen
+                name="Edit"
+                options={{ headerShown: false }}
+                component={EditProfileScreen}
+              />
+              <Stack.Screen
+                name="Package"
+                options={{ headerShown: false }}
+                component={DetailPackage}
+              />
+              <Stack.Screen
+                name="VideoCall"
+                options={{ headerShown: false }}
+                component={VideoCallScreen}
+              />
+              <Stack.Screen
+                name="Chat"
+                options={{ headerShown: false }}
+                component={ChatScreen}
+              />
+              {/* Nambah screen payment */}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </StripeProvider>
+      </Provider>
+    );
+  }
+  return <></>;
 }
 
 function HomeTabs() {

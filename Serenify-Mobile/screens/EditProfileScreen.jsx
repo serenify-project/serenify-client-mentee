@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "../components/Form";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "../config/api";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import BackButton from "../components/BackButton";
 export default function EditProfileScreen({ route, navigation }) {
   const populatedData = route?.params
   const [form, setForm] = useState(populatedData);
@@ -9,7 +11,6 @@ export default function EditProfileScreen({ route, navigation }) {
   const handleSubmit = async () => {
     try {
       const token = await AsyncStorage.getItem('access_token')
-      console.log(token)
       const response = await fetch(`${API_URL}/users/edit`, {
         method: 'put',
         headers: {
@@ -32,13 +33,18 @@ export default function EditProfileScreen({ route, navigation }) {
     }
   };
   return (
-    <Form
-      title={"Edit Profile"}
-      data={form}
-      isEditPage={true}
-      handleChange={setForm}
-      handleSubmit={handleSubmit}
-      isEdit
-    />
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <BackButton />
+        <Form
+          title={"Edit Profile"}
+          data={form}
+          isEditPage={true}
+          handleChange={setForm}
+          handleSubmit={handleSubmit}
+          isEdit
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

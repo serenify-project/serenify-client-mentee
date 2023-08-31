@@ -35,11 +35,7 @@ export function paymentSuccess(packageId) {
         },
         body: JSON.stringify({ packageId: packageId }),
       });
-      const responseJSON = await response.json();
-      // Alert.alert(
-      //   `${responseJSON.message}`,
-      //   `Your transaction id is : ${responseJSON.transactionId}`
-      // );
+      await response.json();
     } catch (err) {
       console.log(err);
     }

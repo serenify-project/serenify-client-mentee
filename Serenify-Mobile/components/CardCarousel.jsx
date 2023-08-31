@@ -2,23 +2,16 @@ import { View, Text, TouchableWithoutFeedback, Dimensions, Image } from "react-n
 import React from "react";
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { fetchPackageDetail } from "../stores/actions/actionCreators.js/package";
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
-
-
-export default function CardCarousel({ data, name }) {
+export default function CardCarousel({ data }) {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
-  const handleClick = async (paket) => {
+  const handleClick = async (packageDetail) => {
     try {
-      // mengupdate store dengan paket yg terpilih
-      await dispatch(fetchPackageDetail(paket.id));
-      navigation.navigate("Package");
-    } catch (err) {
-      console.log(err);
+      navigation.navigate("Package", {id: packageDetail.id});
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -43,7 +36,6 @@ export default function CardCarousel({ data, name }) {
             shadowOffset: { width: 5, height: 5 },
             shadowOpacity: 1,
           }}
-          // vertical={true}
         />
       </View>
     </View>
