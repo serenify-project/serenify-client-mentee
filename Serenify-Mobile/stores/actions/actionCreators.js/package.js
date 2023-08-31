@@ -37,7 +37,6 @@ export function fetchDetailPackageLoading(payload) {
 export function fetchPackages() {
   return async (dispatch) => {
     try {
-      console.log("fetchPackages Jalan");
       dispatch(fetchPackagesLoading(true));
       const response = await fetch(API_URL + "/packages", {
         method: "GET",
@@ -58,7 +57,6 @@ export function fetchPackages() {
 export function fetchPackageDetail(id) {
   return async (dispatch) => {
     try {
-      console.log("fetchDetail berjalan dengan ID:", id);
       dispatch(fetchDetailPackageLoading(true));
       const response = await fetch(API_URL + `/packages/${id}`, {
         method: "GET",
